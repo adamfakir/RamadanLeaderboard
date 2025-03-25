@@ -4,17 +4,24 @@ import {
 } from '@chakra-ui/react';
 import Select from 'react-select';
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbySUCohaUdhkDe_6nBVD_AtccUamVnzI9BR31sM-UNmNozA2w860UgAAnmBGyzkZebp/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzJUOsXW3N2frlQzH0fbnYwCigu9relwGZqLAKhP3o9-zGjCVgHE3AgphyBHNKOTGWy/exec';
 
 function App() {
     const [data, setData] = useState(null);
     const [loggedInName, setLoggedInName] = useState(null);
     const [tabIndex, setTabIndex] = useState(0);
+    const [group, setGroup] = useState("boys");
 
     const prayerRef = useRef();
     const taraweehRef = useRef();
     const qiyamRef = useRef();
     const fullRef = useRef();
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedGroup = urlParams.get("group");
+        if (selectedGroup === "girls") setGroup("girls");
+    }, []);
 
     useEffect(() => {
         fetch(SHEET_API_URL)
@@ -64,11 +71,13 @@ function App() {
         );
     }
 
-    const prayerRanks = data?.ranks?.prayer || [];
-    const taraweehRanks = data?.ranks?.taraweeh || [];
-    const qiyamRanks = data?.ranks?.qiyam || [];
+    const selected = group === "girls" ? data.GirlsData : data.BoysData;
 
-    const allNames = Object.keys(data?.stats || {});
+    const prayerRanks = selected?.ranks?.prayer || [];
+    const taraweehRanks = selected?.ranks?.taraweeh || [];
+    const qiyamRanks = selected?.ranks?.qiyam || [];
+
+    const allNames = Object.keys(selected?.stats || {});
     const options = allNames.map(name => ({ label: name, value: name }));
 
     if (!loggedInName) {
@@ -86,8 +95,8 @@ function App() {
         );
     }
 
-    const points = data.points[loggedInName] || {};
-    const stats = data.stats[loggedInName] || {};
+    const points = selected.points[loggedInName] || {};
+    const stats = selected.stats[loggedInName] || {};
 
     const getRankAbove = (ranks) => {
         const index = ranks.findIndex(p => p.name === loggedInName);
@@ -135,14 +144,14 @@ function App() {
     const prayerAbove = getRankAbove(prayerRanks);
     const taraweehAbove = getRankAbove(taraweehRanks);
     const qiyamAbove = getRankAbove(qiyamRanks);
-    const fullRanks = Object.entries(data.points || {})
+    const fullRanks = Object.entries(selected.points || {})
         .map(([name, p]) => ({ name, points: p.totalPoints || 0 }))
         .sort((a, b) => b.points - a.points);
     const fullAbove = getRankAbove(fullRanks);
 
     return (
         <Box p={6} bg="green.50" minH="100vh">
-            <Heading color="green.700" textAlign="center" mb={2}>🏆 Ramadan Leaderboard</Heading>
+            <Heading color="green.700" textAlign="center" mb={2}>🏆 Leaderboard ({group === 'girls' ? 'Girls' : 'Boys'})</Heading>
             <Text fontSize="xl" textAlign="center" color="green.800" mb={4}>
                 Total Points: <strong>{points.totalPoints}</strong>
             </Text>
