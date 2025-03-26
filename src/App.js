@@ -3,8 +3,9 @@ import {
     Box, Heading, Text, Flex, VStack, Badge, Tabs, TabList, TabPanels, Tab, TabPanel, Spinner, SimpleGrid
 } from '@chakra-ui/react';
 import Select from 'react-select';
+import SulamTab from './SulamTab';
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzJUOsXW3N2frlQzH0fbnYwCigu9relwGZqLAKhP3o9-zGjCVgHE3AgphyBHNKOTGWy/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyajehC6Z4WPRooLmsHiMs08S-H1PPrNq63-k_PgdyLHI1hXoRVeL39qiXsnVGA6vsu/exec';
 
 function App() {
     const [data, setData] = useState(null);
@@ -224,7 +225,13 @@ function App() {
                     </TabPanel>
 
                     <TabPanel><Text>Coming soon inshaAllah!</Text></TabPanel>
-                    <TabPanel><Text>Coming soon inshaAllah!</Text></TabPanel>
+                    <TabPanel>
+                        <SulamTab
+                            ranks={selected?.ranks?.sulam || []}
+                            stats={stats.sulam}
+                            loggedInName={loggedInName}
+                        />
+                    </TabPanel>
                 </TabPanels>
             </Tabs>
         </Box>
