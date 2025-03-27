@@ -4,8 +4,9 @@ import {
 } from '@chakra-ui/react';
 import Select from 'react-select';
 import SulamTab from './SulamTab';
+import I3tikafTab from './I3tikafTab';
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyajehC6Z4WPRooLmsHiMs08S-H1PPrNq63-k_PgdyLHI1hXoRVeL39qiXsnVGA6vsu/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbylcRslVpecGsNKkNhEJIJ_GvsLZKsNkKBB-IiBDmcVZXqB75hCzSERrC3PzZ-X7Sv3/exec';
 
 function App() {
     const [data, setData] = useState(null);
@@ -224,7 +225,14 @@ function App() {
                         </Flex>
                     </TabPanel>
 
-                    <TabPanel><Text>Coming soon inshaAllah!</Text></TabPanel>
+                    <TabPanel>
+                        <I3tikafTab
+                            ranks={selected?.ranks?.i3tikaf || []}
+                            points={points}
+                            loggedInName={loggedInName}
+                        />
+                    </TabPanel>
+
                     <TabPanel>
                         <SulamTab
                             ranks={selected?.ranks?.sulam || []}
