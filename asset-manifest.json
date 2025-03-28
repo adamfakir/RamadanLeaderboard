@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/RamadanLeaderboard/static/js/main.0bcd5526.js",
+    "main.js": "/RamadanLeaderboard/static/js/main.b1a9846b.js",
     "static/js/453.e699598e.chunk.js": "/RamadanLeaderboard/static/js/453.e699598e.chunk.js",
     "index.html": "/RamadanLeaderboard/index.html",
-    "main.0bcd5526.js.map": "/RamadanLeaderboard/static/js/main.0bcd5526.js.map",
+    "main.b1a9846b.js.map": "/RamadanLeaderboard/static/js/main.b1a9846b.js.map",
     "453.e699598e.chunk.js.map": "/RamadanLeaderboard/static/js/453.e699598e.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.0bcd5526.js"
+    "static/js/main.b1a9846b.js"
   ]
 }
